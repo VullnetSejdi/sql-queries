@@ -63,10 +63,28 @@ ORDER BY track_count DESC
 LIMIT 5;
 
 -- The top 5 genres by total track length (in milliseconds)
+SELECT genres.id, genres.name, SUM(tracks.milliseconds) AS total_length
+FROM genres
+JOIN tracks ON (tracks.genre_id = genres.id)
+GROUP BY genres.id
+ORDER BY total_length DESC
+LIMIT 5;
 
 -- The top 5 genres by average track length (in milliseconds)
+SELECT genres.id, genres.name, AVG(tracks.milliseconds) AS average_length
+FROM genres
+JOIN tracks ON (tracks.genre_id = genres.id)
+GROUP BY genres.id
+ORDER BY average_length DESC
+LIMIT 5;
 
 -- The top 5 albums by total track length
+SELECT albums.id, albums.title, SUM(tracks.milliseconds) AS total_length
+FROM albums
+JOIN tracks ON (tracks.album_id = albums.id)
+GROUP BY albums.id
+ORDER BY total_length DESC
+LIMIT 5;
 -- Hint: you'll need to JOIN the albums table and the tracks table
 -- Hint: the tracks table has an album_id field
 
